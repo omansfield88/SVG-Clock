@@ -1,3 +1,4 @@
+//Draw frames
 var firstFrame = d3.select("#first-frame").append("svg")
 				.attr("width", "100%")
 	            .attr("height", "100%")
@@ -35,6 +36,29 @@ var sixthFrame = d3.select("#sixth-frame").append("svg")
 	            .attr("viewBox", "0 0 253 340");
 
 
+
+//Colours//
+//ANDO LAD!//
+//Change colour and stroke weight here// 
+var colour1 = "#B68634";
+var strokeWeight = "2px";
+
+function defGoldGrad(frameID){
+
+	var goldGradDefs = frameID.append("defs");
+	var goldGrad = goldGradDefs.append("linearGradient")
+					.attr("id", "gold-grad");
+	var goldGradStop1 = goldGrad.append("stop")
+					.attr("offset", "5%")
+					.attr("stop-color", "#EDDC94");
+	var goldGradStop2 = goldGrad.append("stop")
+					.attr("offset", "95%")
+					.attr("stop-color", "#B68634");
+}
+
+
+
+//Drawing code - SVG Shapes
 var theDuration = 500;
 
 function drawBall(frameID, cx, cy, r){	  
@@ -48,11 +72,11 @@ function drawBall(frameID, cx, cy, r){
 							.attr("fy", "50%");
 	var ballGradStop1 = ballGradRadialGrad.append("stop")
 						.attr("offset", "49%")
-						.attr("stop-color", "#000000")
+						.attr("stop-color", colour1)
 						.attr("stop-opacity", "0");
 	var ballGradStop2 = ballGradRadialGrad.append("stop")
 						.attr("offset", "0%")
-						.attr("stop-color", "#000000")
+						.attr("stop-color", colour1)
 						.attr("stop-opacity", "1");	
 
 	var ball = frameID.append("circle")
@@ -69,9 +93,11 @@ function drawBall(frameID, cx, cy, r){
 
 
 function drawSlash(frameID, startCoOrdinates, endCoOrdinates){
+	defGoldGrad(frameID);
+
 	var slash = frameID.append("polygon")
 				.attr("points", startCoOrdinates)
-				.attr("fill", "#ffdf17")
+				.attr("fill", colour1)
 				.attr("class", "slash")
 				.attr("opacity", 1);
 
@@ -84,8 +110,8 @@ function drawPath(frameID, pathCoOrdinates, dashArray, dashOffset){
 	var path = frameID.append("path")
 				.attr("d", pathCoOrdinates)
 				.attr("fill", "none")
-				.attr("stroke", "#000000")
-				.attr("stroke-width", "1px")
+				.attr("stroke", colour1)
+				.attr("stroke-width", strokeWeight)
 				.attr("stroke-dasharray", dashArray)
 				.attr("stroke-dashoffset", dashOffset)
 				.attr("opacity", 1);
@@ -102,8 +128,8 @@ function drawLine(frameID, x1, y1, x2, y2, dashArray, dashOffset){
 				.attr("x2", x2)
 				.attr("y2", y2)
 				.attr("fill", "none")
-				.attr("stroke", "#000000")
-				.attr("stroke-width", "1px")
+				.attr("stroke", colour1)
+				.attr("stroke-width", strokeWeight)
 				.attr("stroke-dasharray", dashArray)
 				.attr("stroke-dashoffset", dashOffset)
 				.attr("opacity", 1);
@@ -115,15 +141,13 @@ function drawLine(frameID, x1, y1, x2, y2, dashArray, dashOffset){
 
 
 
-
+//Drawing code - Numbers
 function createZero(frameID){
 	drawPath(frameID, 
 			"M126.5,20c51.6,0,93.4,41.8,93.4,93.4s-41.8,93.4-93.4,93.4S33.1,165,33.1,113.4S74.9,20,126.5,20", //path coordinates
 			"590",  //dash array
 			"590"); //dash offset
 }
-
-
 
 function createOne(frameID){
 	drawSlash(frameID,
@@ -156,7 +180,6 @@ function createTwo(frameID){
 			"550"); //dash offset
 }
 
-
 function createThree(frameID){
 	drawBall(frameID, 
 			"81.261", //cx
@@ -171,7 +194,6 @@ function createThree(frameID){
 			"M71.9,132.6l54.5,0c51.6,0,93.4,41.8,93.4,93.4s-41.8,93.4-93.4,93.4s-93.4-41.8-93.4-93.4c0-6.4,0.6-12.6,1.9-18.7", //path coordinates
 			"830",  //dash array
 			"830"); //dash offset
-
 }
 
 function createFour(frameID){
@@ -240,8 +262,7 @@ function createSeven(frameID){
 			"232.8", //x2
 			"20.5",  //y2
 			"147",   //dash array
-			"-147"   //dash offset
-			)
+			"-147");   //dash offset			
 }
 
 function createEight(frameID){
@@ -267,7 +288,6 @@ function createNine(frameID){
 				"600",  //dash array
 				"600"); //dash offset
 }
-
 
 
 //Remove all SVG shapes after a certain time
@@ -338,7 +358,7 @@ function getTime(){
     currentTime.secondTwo = seconds[1];
 };
 
-
+//Draw SVG shapes depending on what number is present
 //num becomes currentNum from refresh()
 function drawNumber(num, frameID){
 	if (num == 0){
@@ -552,87 +572,3 @@ refreshSixth();
 
 // }, 1000);
 
-
-	// var frame = d3.select("#second").append("svg")
-	//             .attr("width", "100%")
-	//             .attr("height", "100%")
-	//             .attr("class", "svg-frame")
-	//             .attr("viewBox", "0 0 340 500");
-
-
-	//   ////////////////
-	//  ///SLASH////////
-	// ////////////////
-	// var slashStart = "177.7,20.4 177.5,20.7 244.4,20.7 244.6,20.4";
-	// var slashEnd = "177.7,20.4 80.4,192.6 147.3,192.6 244.6,20.4"; 
-
-	// var slash = frame.append("polygon")
-	// 			.attr("points", slashStart)
-	// 			.attr("fill", "#ffdf17");
-
-	// slash.transition()
-	// 	.duration(500)
-	// 	.attr("points", slashEnd);
-
-
-	//   ////////////////
-	//  ///LINE/////////
-	// ////////////////
-	// var linePath = "M80.6,192.6l83.3,0c79.2,0,143.5,64.2,143.5,143.5s-64.2,143.5-143.5,143.5c-79.2,0-143.5-64.2-143.5-143.5c0-9.8,1-19.4,2.9-28.7"
-	// var line = frame.append("path")
-	// 			.attr("d", linePath)
-	// 			.attr("fill", "none")
-	// 			.attr("stroke", "#000000")
-	// 			.attr("stroke-width", "1px")
-	// 			.attr("stroke-dasharray", "830")
-	// 			.attr("stroke-dashoffset", "830");
-
-	// line.transition()
-	// 	.duration(500)
-	// 	.attr("stroke-dashoffset", "0");
-
-
-
-
-
-
-
-	// var frame = d3.select("#first").append("svg")
- //            .attr("width", "100%")
- //            .attr("height", "100%")
- //            .attr("class", "svg-frame")
- //            .attr("viewBox", "0 0 253 340");
-
- //  	  ////////////////
-	//  ///SLASH////////
-	// ////////////////
-	// var slashStart = "232.1,21.6 232.8,20.5 189.2,20.5 188.6,21.6";
-	// var slashEnd = "63.8,319.5 232.8,20.5 189.2,20.5 20.2,319.5"; 
-
-	// var slash = frame.append("polygon")
-	// 			.attr("points", slashStart)
-	// 			.attr("fill", "#ffdf17");
-
-	// slash.transition()
-	// 	.duration(500)
-	// 	.attr("points", slashEnd);
-
-
-	//   ////////////////
-	//  ///LINE/////////
-	// ////////////////
-	// var linePath = "M80.6,192.6l83.3,0c79.2,0,143.5,64.2,143.5,143.5s-64.2,143.5-143.5,143.5c-79.2,0-143.5-64.2-143.5-143.5c0-9.8,1-19.4,2.9-28.7"
-	// var line = frame.append("line")
-	// 			.attr("x1", "88.5")
-	// 			.attr("y1", "20.5")
-	// 			.attr("x2", "232.8")
-	// 			.attr("y2", "20.5")
-	// 			.attr("fill", "none")
-	// 			.attr("stroke", "#000000")
-	// 			.attr("stroke-width", "1px")
-	// 			.attr("stroke-dasharray", "145")
-	// 			.attr("stroke-dashoffset", "-145");
-
-	// line.transition()
-	// 	.duration(500)
-	// 	.attr("stroke-dashoffset", "0");
